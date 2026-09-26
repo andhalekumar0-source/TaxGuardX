@@ -1,0 +1,6 @@
+transaction_id,taxpayer_id,amount,country,expected_country,failed_attempts,is_duplicate,velocity_count
+TX001,DEMO001,1500,IN,IN,0,false,1
+TX002,DEMO002,125000,IN,IN,0,false,2
+TX003,DEMO003,8000,US,IN,3,true,12
+TX004,DEMO004,2500,IN,IN,1,false,2
+TX005,DEMO005,75000,IN,IN,0,false,5
