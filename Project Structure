@@ -1,0 +1,32 @@
+TaxGuardX/
+│
+├── README.md
+├── LICENSE
+├── CONTRIBUTING.md
+├── .gitignore
+├── requirements.txt
+├── run.py
+│
+├── app/
+│   ├── __init__.py
+│   ├── routes.py
+│   ├── validation.py
+│   ├── risk_engine.py
+│   └── templates/
+│       └── index.html
+│
+├── tests/
+│   ├── test_api.py
+│   └── test_risk_engine.py
+│
+├── data/
+│   └── sample/
+│       └── transactions.csv
+│
+├── docs/
+│   ├── case-study.md
+│   ├── threat-model.md
+│   ├── methodology.md
+│   └── testing.md
+│
+└── screenshots/
