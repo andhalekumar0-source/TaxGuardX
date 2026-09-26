@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>TaxGuardX | Risk Analysis Dashboard</title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 900px;
+            margin: 40px auto;
+            padding: 20px;
+            background: #f7f7f7;
+        }
+
+        h1 {
+            margin-bottom: 5px;
+        }
+
+        .subtitle {
+            color: #666;
+        }
+
+        .card {
+            background: white;
+            border: 1px solid #ddd;
+            border-radius: 12px;
+            padding: 20px;
+            margin-top: 20px;
+        }
+
+        label {
+            display: block;
+            margin-top: 12px;
+            font-weight: bold;
+        }
+
+        input {
+            width: 100%;
+            padding: 10px;
+            margin-top: 6px;
+            box-sizing: border-box;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+        }
+
+        button {
+            margin-top: 20px;
+            padding: 12px 20px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+
+        button:hover {
+            opacity: 0.85;
+        }
+
+        pre {
+            background: #f1f1f1;
+            padding: 15px;
+            border-radius: 8px;
+            overflow-x: auto;
+            white-space: pre-wrap;
+        }
+
+        .notice {
+            margin-top: 15px;
+            padding: 10px;
+            background: #fff8e1;
+            border-radius: 6px;
+            font-size: 14px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <h1>🛡️ TaxGuardX</h1>
+
+    <p class="subtitle">
+        Defensive Tax-Transaction Risk Analysis Dashboard
+    </p>
+
+    <div class="notice">
+        Educational demonstration using synthetic data only.
+    </div>
+
+    <div class="card">
+
+        <h2>Transaction Analysis</h2>
+
+        <label for="transaction_id">
+            Transaction ID
+        </label>
+
+        <input
+            id="transaction_id"
+            type="text"
+            value="TX-DEMO-001"
+        >
+
+
+        <label for="taxpayer_id">
+            Taxpayer ID
+        </label>
+
+        <input
+            id="taxpayer_id"
+            type="text"
+            value="DEMO-001"
+        >
+
+
+        <label for="amount">
+            Transaction Amount
+        </label>
+
+        <input
+            id="amount"
+            type="number"
+            value="125000"
+            min="0"
+        >
+
+
+        <label for="country">
+            Transaction Country
+        </label>
+
+        <input
+            id="country"
+            type="text"
+            value="IN"
+        >
+
+
+        <label for="expected_country">
+            Expected Country
+        </label>
+
+        <input
+            id="expected_country"
+            type="text"
+            value="IN"
+        >
+
+
+        <label for="failed_attempts">
+            Failed Attempts
+        </label>
+
+        <input
+            id="failed_attempts"
+            type="number"
+            value="0"
+            min="0"
+        >
+
+
+        <label for="velocity_count">
+            Transaction Velocity Count
+        </label>
+
+        <input
+            id="velocity_count"
+            type="number"
+            value="0"
+            min="0"
+        >
+
+
+        <button onclick="analyzeTransaction()">
+            🔍 Analyze Transaction
+        </button>
+
+    </div>
+
+
+    <div class="card">
+
+        <h2>Analysis Result</h2>
+
+        <pre id="result">No analysis performed yet.</pre>
+
+    </div>
+
+
+    <script>
+
+        async function analyzeTransaction() {
+
+            const payload = {
+
+                transaction_id:
+                    document.getElementById(
+                        "transaction_id"
+                    ).value,
+
+                taxpayer_id:
+                    document.getElementById(
+                        "taxpayer_id"
+                    ).value,
+
+                amount:
+                    Number(
+                        document.getElementById(
+                            "amount"
+                        ).value
+                    ),
+
+                country:
+                    document.getElementById(
+                        "country"
+                    ).value,
+
+                expected_country:
+                    document.getElementById(
+                        "expected_country"
+                    ).value,
+
+                failed_attempts:
+                    Number(
+                        document.getElementById(
+                            "failed_attempts"
+                        ).value
+                    ),
+
+                velocity_count:
+                    Number(
+                        document.getElementById(
+                            "velocity_count"
+                        ).value
+                    )
+            };
+
+
+            const resultBox =
+                document.getElementById(
+                    "result"
+                );
+
+
+            resultBox.textContent =
+                "Analyzing...";
+
+
+            try {
+
+                const response =
+                    await fetch(
+                        "/api/analyze",
+                        {
+                            method: "POST",
+
+                            headers: {
+                                "Content-Type":
+                                    "application/json"
+                            },
+
+                            body:
+                                JSON.stringify(
+                                    payload
+                                )
+                        }
+                    );
+
+
+                const data =
+                    await response.json();
+
+
+                resultBox.textContent =
+                    JSON.stringify(
+                        data,
+                        null,
+                        2
+                    );
+
+
+            } catch (error) {
+
+                resultBox.textContent =
+                    "Error connecting to TaxGuardX API.\n\n"
+                    + error;
+
+            }
+
+        }
+
+    </script>
+
+</body>
+
+  </html>
